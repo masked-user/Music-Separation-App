@@ -1,5 +1,5 @@
 # lab7-music-separation-kubernetes
-![separation](lab7-music-separation-kubernetes/images/music_separation.png)
+![separation](lab7-music-separation-kubernetes-masked-user-main/images/music_separation.png)
 Music-Separation-as-a-service (MSaaS)
 ## Overview
 In this lab, you're going to create a kubernetes cluster that provides a REST API for automatic music separation service and prepares the different tracks for retrieval. You can, if you wish, provide an alternate gRPC API following the genera outline of this lab.
@@ -32,10 +32,10 @@ One benefit of an object store is that you can control access to those objects &
 We strongly suggest you set up a [Min.io server as shown in the Kubernetes tutorial](https://github.com/cu-csci-4253-datacenter/kubernetes-tutorial/tree/master/06-minio) and use that during your development phase. You could then change the credentials and endpoint if you want to e.g. use Google Object Store later.
 
 In my reference solution, I had a single 'bucket' called "queue" that holds the objects containing MP3 songs to process and another bucket called "output" to hold the results ready for download:
-![buckets](images/buckets.png)
+![buckets](lab7-music-separation-kubernetes-masked-user-main/images/buckets.png)
 
 The "output" bucket has objects named `<songhash>-<track>.mp3` that contain the separate tracks of a song:
-![output bucket image](images/output-bucket.png)
+![output bucket image](lab7-music-separation-kubernetes-masked-user-main/images/output-bucket.png)
 
 ## Suggested Development Steps
 
