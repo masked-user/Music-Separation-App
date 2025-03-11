@@ -1,5 +1,5 @@
 # lab7-music-separation-kubernetes
-![separation](images/music_separation.png)
+![separation](lab7-music-separation-kubernetes/images/music_separation.png)
 Music-Separation-as-a-service (MSaaS)
 ## Overview
 In this lab, you're going to create a kubernetes cluster that provides a REST API for automatic music separation service and prepares the different tracks for retrieval. You can, if you wish, provide an alternate gRPC API following the genera outline of this lab.
