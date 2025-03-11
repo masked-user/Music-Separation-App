@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: worker
+  template:
+    metadata:
+      labels:
+        app: worker
+    spec:
+      containers:
+      - name: worker
+        image: adityasriram34/demucs-worker:latest
+        env:
+        - name: REDIS_HOST
+          value: "redis"
+        - name: REDIS_PORT
+          value: "6379"
+        - name: MINIO_HOST
+          value: "minio-proj.minio-ns.svc.cluster.local:9000"
+        - name: MINIO_ACCESS_KEY
+          value: "rootuser"
+        - name: MINIO_SECRET_KEY
+          value: "rootpass123"
+        resources:
+          requests:
+            memory: "3Gi"
+            cpu: "2000m"
+          limits:
+            memory: "5Gi"
+            cpu: "4000m"
+        volumeMounts:
+        - name: tmp-storage
+          mountPath: /tmp
+        livenessProbe:
+          exec:
+            command: ["python3", "-c", "import redis; redis.StrictRedis(host='redis', port=6379).ping()"]
+          initialDelaySeconds: 120
+          periodSeconds: 60
+          timeoutSeconds: 15
+          failureThreshold: 6
+        readinessProbe:
+          exec:
+            command: ["python3", "-c", "import redis; redis.StrictRedis(host='redis', port=6379).ping()"]
+          initialDelaySeconds: 100
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 4
+      volumes:
+      - name: tmp-storage
+        emptyDir: {}

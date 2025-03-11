@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rest-server
+spec:
+  selector:
+    matchLabels:
+      app: rest-server
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rest-server
+    spec:
+      containers:
+      - name: rest-server
+        image: adityasriram34/demucs-rest:latest 
+        ports:
+        - containerPort: 5000
+        env:
+        - name: REDIS_HOST
+          value: "redis"  # Redis service is accessible as "redis" within the same namespace
+        - name: REDIS_PORT
+          value: "6379"
+        - name: MINIO_HOST
+          value: "minio-proj.minio-ns.svc.cluster.local:9000"  # Minio service in "minio-ns" namespace
+        - name: MINIO_ACCESS_KEY
+          value: "rootuser"  # Replace with actual Minio credentials
+        - name: MINIO_SECRET_KEY
+          value: "rootpass123"  # Replace with actual Minio credentials
